@@ -6,5 +6,6 @@ docker-build:
 docker-push: docker-build
 	docker push ${APPNAME}
 
+# you wil most likely need to inject the environment variables through the -e or --env-file flag. See README for more information.
 run:
-	npm start
+	docker run ${APPNAME} 

@@ -8,6 +8,7 @@ async function login() {
 
     const config = {
         method: 'post',
+        withCredentials: true,
         url: 'https://statusinvest.com.br/account/login',
         headers: {
             'Accept-Encoding': 'gzip,deflate,compress',
@@ -23,7 +24,7 @@ async function login() {
         }
         return response.headers?.['set-cookie'].reduce((prev, curr) => `${prev}${prev ? ';' : ''} ${curr}`, '');
     } catch (e) {
-        console.log("Log in failed.");
+        console.log("Log in failed:", e);
         return null;
     }
 }

@@ -1,0 +1,21 @@
+name: Wallet Backup
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  run:
+    name: Do wallet backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Run the script
+        uses: addnab/docker-run-action@v3
+        with:
+            image: luisfelipe998/wallet-backup:latest
+            options: -v ${{ github.workspace }}:/var/www -e ${{secrets.EMAIL}} -e ${{secrets.PASSWORD}}
+            run: |
+                npm start

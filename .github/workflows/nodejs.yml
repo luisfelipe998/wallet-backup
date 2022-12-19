@@ -2,9 +2,11 @@ name: Wallet Backup
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+  schedule:
+    - cron: "* * * * *"
 jobs:
   run:
     name: Do wallet backup
@@ -15,7 +17,7 @@ jobs:
       - name: Run the script
         uses: addnab/docker-run-action@v3
         with:
-            image: luisfelipe998/wallet-backup:latest
-            options: -v ${{ github.workspace }}:/var/www -e EMAIL=${{secrets.EMAIL}} -e PASSWORD=${{secrets.PASSWORD}}
-            run: |
-                npm start
+          image: luisfelipe998/wallet-backup:latest
+          options: -v ${{ github.workspace }}:/var/www -e EMAIL=${{secrets.EMAIL}} -e PASSWORD=${{secrets.PASSWORD}}
+          run: |
+            npm start

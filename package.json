@@ -13,8 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "@types/nodemailer": "^6.4.7",
+    "axios": "^1.2.1",
     "dotenv": "^16.0.3",
-    "nodemailer": "^6.8.0"
+    "nodejs-file-downloader": "^4.10.3",
+    "nodemailer": "^6.8.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "husky": "^8.0.2"

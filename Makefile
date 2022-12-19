@@ -5,3 +5,6 @@ docker-build:
 
 docker-push: docker-build
 	docker push ${APPNAME}
+
+run:
+	npm start

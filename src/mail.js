@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-async function sendMail() {
+async function sendMail({ attachments }) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -12,22 +12,36 @@ async function sendMail() {
     const mailOptions = {
         from: process.env.EMAIL,
         to: process.env.EMAIL,
-        subject: 'Hello there',
-        text: 'This is a test with attachment',
+        subject: `Wallet backup from ${new Date().toLocaleDateString('BR')}`,
+        text:
+            `Hello,
+        
+Sending as attachments the wallet backup from ${process.env.STATUS_INVEST_EMAIL} account from date ${new Date().toLocaleDateString('BR')}.
+        
+Regards,
+wallet backup script`,
         attachments: [
             {
-                filename: `test-${new Date().toISOString()}.txt`,
-                path: './test.txt'
+                filename: `posistions-${new Date().toISOString()}.xlsx`,
+                path: attachments.positionsFilePath
+            },
+            {
+                filename: `transactions-${new Date().toISOString()}.xlsx`,
+                path: attachments.transactionsFilePath
+            },
+            {
+                filename: `earnings-${new Date().toISOString()}.xlsx`,
+                path: attachments.earningsFilePath
             }
         ]
     };
 
     try {
         const response = await transporter.sendMail(mailOptions);
-        console.log(`successfully sent email to ${response.accepted.toString()}`);
+        console.log(`Successfully sent email to ${response.accepted.toString()}`);
         return true;
     } catch (e) {
-        console.log(`failed to send email: ${e.message}`);
+        console.log(`Failed to send email: ${e.message}`);
         return false
     }
 }

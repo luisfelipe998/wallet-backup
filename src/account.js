@@ -23,7 +23,7 @@ async function login() {
         }
         return response.headers?.['set-cookie'].reduce((prev, curr) => `${prev}${prev ? ';' : ''} ${curr}`, '');
     } catch (e) {
-        console.log("Log in failed:", e);
+        console.log("Log in failed.");
         return null;
     }
 }
